@@ -1,0 +1,61 @@
+---
+title: "Specimen_Sample_Preparation"
+output: html_document
+date: "2024-08-15"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## **STEP 1: Formalin Fixing Protocol**
+
+[reference] (<https://www.surrey.ac.uk/sites/default/files/Formalin-Fixative.pdf>)
+
+To adjust the 10% formalin solution to a neutral pH you would need to mix in quantities of a buffer, typically sodium phosphate.
+
+A recommended recipe is as follows:
+
+-   100 mL formalin(37-40% stock solution)
+
+-   900 mL water (preferrably distilled)
+
+-   4 g/L NaH2PO4 (monobasic)
+
+-   6.5 g/L Na2HPO4(dibasic/anhydrous)
+
+-make incision on side of specimen so solution fully penetrates and fixes all tissue
+
+-leave 6-24 hours
+
+### Bill's Way
+
+-   10% buffered formalin solution
+
+    -   lay fish flat; let fish fix for a few days (small fish; larger fish should have bellies cut open or injected with formalin so it reaches the interior of the specimen, good after about a week)
+
+\~\~*dehydration*\~\~
+
+-   after fixing, place fish into water to remove any formalin in it (length in water depends on size of fish, but lasts up to 2 days for large specimens)
+
+-   transfer to ethanol (typically 70%); alternatively, use 50% isopropyl alcohol.
+
+## Wish List 
+
+-   formalin 37%-40% - 1 L - [#8187081000](https://www.sigmaaldrich.com/US/en/product/mm/818708?utm_source=google&utm_medium=organicshopping&utm_source=google&utm_medium=cpc&utm_campaign=20790375250&utm_content=154400301983&gclid=Cj0KCQjw2ou2BhCCARIsANAwM2Had4Um0n7c1kHjf-a4ZsmS_XakWjoOtj23gW5CTDrIgsnDDUAt7doaAqcGEALw_wcB) \$40.10
+
+-   Sodium phosphate monobasic NAH2PO4 - 100 g [#S0751-100G](https://www.sigmaaldrich.com/US/en/product/sial/s0751) \$25.60
+
+-   Sodium phosphate dibasic NAH2PO4 - 100 g [\# S0876-100G](https://www.sigmaaldrich.com/US/en/product/sial/s0876) \$39
+
+-   water - free
+
+    -   \^this should be good for at least 10 L of 10% buffered formalin solution (plenty of buffer NAH2PO4s leftover for next 10L)
+
+-   [UCLA SOP formaldehyde](https://ucla.box.com/s/bepsbrm5aiifzaqo7r76xjpzl0b0wuz9)
+
+    -   need fume hood when handling formaldehyde
+
+    -   PPE: lab coat, gloves, glasses/goggles
+
+    -   
