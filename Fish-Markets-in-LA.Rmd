@@ -1,0 +1,43 @@
+---
+title: "Fish-Markets-in-LA"
+output: html_document
+date: "2024-08-21"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## LOCAL FISH MARKETS INFO
+
+-   San Pedro Saturday Morning Fish Market
+
+    -   Starts between 2AM-3AM [general info] (<https://sanpedro.com/la-waterfront/saturday-morning-fish-market/>)
+
+-   Pacific Fresh Fish - DTLA
+
+    -   Open Mon-Sat, 6AM-12PM [link] (<https://www.pacificfreshfish.com/>)
+
+    -   rockfish, mexican striped bass, sculpin, red snapper
+
+-   Dory Fleet - Newport Beach
+
+    -   Open, Wednesday-Sunday 5:30AM-12PM (wed-fri = fish only!)
+
+    -   sheepshead, sculpin, thornyhead, sea trout, pacific sanddab [link] (<https://doryfleet.com/market/>)
+
+## Fish Pet Stores
+
+-   LAX Aquarium
+
+    -   tons of tropical fish for pet trade, very expensive
+
+    -   open everyday from 10:30AM-6PM [link] (<https://laxaquarium.com/>)
+
+-   Bob's Tropical Fish - E. LA, Commerce area
+
+-   Tokyo Aquarium, Adams-La Brea
+
+-   Aquarium City, Canoga Park
+
+-   Nolan's Aquarium, Santa Ana
