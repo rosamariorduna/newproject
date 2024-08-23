@@ -1,0 +1,87 @@
+---
+title: "GF_fixed_0_R_data"
+output: html_document
+date: "2024-08-23"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+#Convert Spec to Color and stats
+# After you install the packages, load them using the library function
+#install.packages("tidyverse")
+#install.packages("magick")
+#install.packages("pavo")
+
+library(tidyverse)
+library(magick)
+library(pavo)
+
+# Read in data (make sure you are in the correct working directory)
+df = read.csv("~/Downloads/gf_fixed_0_data.csv", skip = 4)
+```
+
+```{r}
+# Clean up the column names
+# Extracting numbers from column names with X and number
+new_names <- gsub("X([0-9]+)", "\\1", names(df))  
+names(df) <- new_names
+
+# Get only spectra and first column
+spec_dat = df[,c(1,which(colnames(df)==350):which(colnames(df) == 1002))]
+
+# Remove NA
+spec_dat = na.omit(spec_dat)
+
+# Clean up ID's (Removes anything after "_")
+# (note, strsplit is a function from the tidyverse package)
+ids = sapply(strsplit(spec_dat$name, "_"), function(x) x[1])
+
+# Remove ID's and transpose matrix for pavo format 
+spec_pavo = t(spec_dat[,-c(1)])
+
+# Rename Columns
+colnames(spec_pavo) = ids
+
+# if its under 380, then its zero (for inside only, since there is no UV)
+row.names(spec_pavo) # To check wavelength
+spec_pavo[1:8,1:ncol(spec_pavo)] <- 0
+
+# Add wavelength column for pavo
+wl = as.numeric(rownames(spec_pavo))
+spec_pavo = data.frame(wl, spec_pavo)
+colnames(spec_pavo) = c("wl", ids)
+#spec_pavo = spec_pavo[,2:ncol(spec_pavo)]
+```
+```{r}
+########
+#everything above is related to formatting csv to pavo in r 
+# Convert to an rspec object
+spec_format = as.rspec(spec_pavo, lim = c(350, 1000), exceed.range = T)
+spec_format_for_color = as.rspec(spec_pavo, lim = c(300, 700), exceed.range = T)
+#^to plot correct colors
+
+
+# Fix negative values
+spec_format = procspec(spec_format, fixneg = "zero")
+spec_format[,2:ncol(spec_format)] <- spec_format[,2:ncol(spec_format)]*100
+#takes numbers, multiplies by 100
+
+# Fix negative values for color
+spec_format_for_color = procspec(spec_format_for_color, fixneg = "zero")
+spec_format_for_color[,2:ncol(spec_format_for_color)] <- spec_format_for_color[,2:ncol(spec_format_for_color)]*100
+
+plot(spec_format, col = spec2rgb(spec_format_for_color), 
+     type = "overlay", xlim = c(350, 1000))
+
+#stuff below is just showing how colors are labeled
+yeah <- spec2rgb(spec_format_for_color)
+yeah
+
+plot(spec_format, col= yeah, xlim=c(350, 700), lwd=4)
+##
+
+summary_stats = summary(spec_format)
+summary_stats
+```
