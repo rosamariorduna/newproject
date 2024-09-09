@@ -40,7 +40,7 @@ A recommended recipe is as follows:
 
 -   transfer to ethanol (typically 70%); alternatively, use 50% isopropyl alcohol.
 
-## Wish List 
+## Wish List
 
 -   formalin 37%-40% - 1 L - [#8187081000](https://www.sigmaaldrich.com/US/en/product/mm/818708?utm_source=google&utm_medium=organicshopping&utm_source=google&utm_medium=cpc&utm_campaign=20790375250&utm_content=154400301983&gclid=Cj0KCQjw2ou2BhCCARIsANAwM2Had4Um0n7c1kHjf-a4ZsmS_XakWjoOtj23gW5CTDrIgsnDDUAt7doaAqcGEALw_wcB) \$40.10
 
@@ -58,4 +58,48 @@ A recommended recipe is as follows:
 
     -   PPE: lab coat, gloves, glasses/goggles
 
-    -   
+-   **How do I dispose of formalin waste?**
+
+    -   [link] (<https://ehs.ucla.edu/people/lizette-enriquez>)
+
+## Using paraformaldehyde 8%
+
+-   paraformaldehyde 50:50 with 1X phosphate-buffered saline
+
+-   During the 24-48 hours it sits in 4% paraformaldehyde it has to be in the fridge at 4 degrees C
+
+    -   will use Barber lab fridge for storage!
+
+    -   will use Kobie's PBS 1X
+
+2400 - Distilled water
+
+## Market Fish Preservation
+
+September 1, 2024 \~11AM
+
+-   900 ml DI H2O x 3 = 2700 ml
+
+-   100 mL formalin x 3 = 300 ml
+
+-   4 g/L NaH2PO4 (monobasic) x 3 = 12g
+
+-   6.5 g/L Na2HPO4(dibasic/anhydrous) x 3 = 19.5 g
+
+    mackerel and red snapper
+
+-   Notes: both fish were cleaned and probably frozen at one point, red snapper was de-scaled, mackerel was cut in half down the ventral side
+
+**September 6, 2024 8:45am**
+
+Starting Dehydration
+
+-   transferring fish out of formalin and into distilled water for \~2 days NEED TO COME ON SUNDAY?!!
+
+-   then transfer to 50% isopropyl or 70% ethanol, TBD...
+
+**September 9, 2024**
+
+-   transferred fish to 70% EtOH
+
+-   took pictures w/ perclass camera

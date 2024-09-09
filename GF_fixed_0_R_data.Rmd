@@ -85,3 +85,28 @@ plot(spec_format, col= yeah, xlim=c(350, 700), lwd=4)
 summary_stats = summary(spec_format)
 summary_stats
 ```
+
+
+```{r}
+# Boxplot of color stats
+# Need to adjust the wlmin and wlmax to whichever is appropriate for you system
+# DO NOT USE DEFAULT
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+summary_stats = summary(spec_format, wlmin = 380, wlmax = 700)
+df <- summary_stats
+df[,colnames(df)]
+df <- df[,colnames(df)[!colnames(df) %in% c("B1", "S5")]]
+df_long <- df %>%
+  pivot_longer(cols = everything(), names_to = "Treatment", values_to = "Value")
+
+# Create the boxplot
+ggplot(df_long, aes(x = Treatment, y = Value)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Boxplot of Color Statistics", x = "Color Statistics", y = "Value") #+ scale_y_log10() 
+
+
+```
