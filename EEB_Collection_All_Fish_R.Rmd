@@ -1,0 +1,213 @@
+---
+title: "Untitled"
+output: html_document
+date: "2024-10-18"
+---
+#EEB_collection_fish 8-9-24_DATA 
+```{r}
+
+library(tidyverse)
+library(pavo)
+library(jpeg)
+
+rm(list = ls())
+```
+
+```{r}
+# Read in data (make sure you are in the correct working directory)
+df = read.csv("~/Downloads/EEB_collection_fish 8-9-24_DATA.csv", skip = 4)
+
+# Clean up the column names
+# Extracting numbers from column names with X and number
+new_names <- gsub("X([0-9]+)", "\\1", names(df))  
+names(df) <- new_names
+
+# Get only spectra and first column
+spec_dat = df[,c(1,which(colnames(df)==350):which(colnames(df) == 1002))]
+
+# Remove NA
+spec_dat = na.omit(spec_dat)
+```
+
+```{r}
+# Clean up ID's (Removes anything after "_")
+# (note, strsplit is a function from the tidyverse package)
+ids = sapply(strsplit(spec_dat$name, "_"), function(x) x[1])
+
+# Remove ID's and transpose matrix for pavo format 
+spec_pavo = t(spec_dat[,-c(1)])
+
+# Rename Columns
+colnames(spec_pavo) = ids
+
+# if its under 380, then its zero (for inside only, since there is no UV)
+spec_pavo[1:8,1:ncol(spec_pavo)] <- 0
+#spec_pavo$wl # To check wavelength
+
+# Add wavelength column for pavo
+wl = as.numeric(rownames(spec_pavo))
+spec_pavo = data.frame(wl, spec_pavo)
+colnames(spec_pavo) = c("wl", ids)
+#spec_pavo = spec_pavo[,2:ncol(spec_pavo)]
+
+```
+```{r, message=FALSE, warning=FALSE}
+# Convert to an rspec object
+spec_format = as.rspec(spec_pavo, lim = c(350, 1000), exceed.range = T)
+spec_format_for_color = as.rspec(spec_pavo, lim = c(300, 700), exceed.range = T)
+
+# Fix negative values
+spec_format = procspec(spec_format, fixneg = "zero")
+spec_format[,2:ncol(spec_format)] <- spec_format[,2:ncol(spec_format)]*100
+
+# Fix negative values for color
+spec_format_for_color = procspec(spec_format_for_color, fixneg = "zero")
+spec_format_for_color[,2:ncol(spec_format_for_color)] <- spec_format_for_color[,2:ncol(spec_format_for_color)]*100
+
+# Plot all spec
+pdf(file = "~/Downloads/EEB_collection_fish_graph.pdf", width = 10, height = 7)
+
+plot(spec_format[,c(1:9,2)], col = spec2rgb(spec_format_for_color), 
+     type = "overlay", xlim = c(350, 700), ylim=c(0,100), lwd=2.5, 
+     main="Spectral Reflectance Curve: Fish Specimens 
+     from the UCLA EEB Collection", cex.main=2)
+
+# Extract out summary statistics used in pavo
+summary_stats = summary(spec_format)
+dev.off()
+```
+
+```{r}
+# Plotting multiple images
+
+# Extract out specific columns
+pull_spec_numb = function(spec_format, spec_format_for_color, col_num){
+  rgb_color <- spec2rgb(spec_format_for_color)
+  extracted_spec <- spec_format[,c(1,col_num)]
+  if(col_num == 1){
+    stop("Need column to be greater than 1")
+  }
+  temp_list <- vector(mode = "list", length = 2)
+  temp_list[[1]] <- extracted_spec 
+  temp_list[[2]] <- rgb_color[col_num]
+  return(temp_list)
+}
+
+# Code to pull out a column
+temp = pull_spec_numb(spec_format = spec_format,
+               spec_format_for_color = spec_format_for_color,
+               col_num = 2)
+
+# Read in picture
+img<-readJPEG("~/Downloads/Ophiodon_elongatus.jpeg")
+img2<-readJPEG("~/Downloads/Catostomus_platyrhynchus.jpeg")
+img3<-readJPEG("~/Downloads/Oncorhynchus_clarkii.jpeg")
+img4<-readJPEG("~/Downloads/Oncorhynchus_mykiss.jpeg")
+img5<-readJPEG("~/Downloads/Paralabrax_clathratus.jpeg")
+img6<-readJPEG("~/Downloads/Sebastes_rosaceus.jpeg")
+img7<-readJPEG("~/Downloads/Sebastes_serriceps.jpeg")
+img8<-readJPEG("~/Downloads/Sebastes_chrysomelas.jpeg")
+
+# Extract out column 2
+col2 = pull_spec_numb(spec_format = spec_format,
+               spec_format_for_color = spec_format_for_color,
+               col_num = 2)
+# Extract out column 3
+col3 = pull_spec_numb(spec_format = spec_format,
+                      spec_format_for_color = spec_format_for_color,
+                      col_num = 3)
+# Extract out column 4
+col4 = pull_spec_numb(spec_format = spec_format,
+                      spec_format_for_color = spec_format_for_color,
+                      col_num = 4)
+# Extract out column 5
+col5 = pull_spec_numb(spec_format = spec_format,
+                      spec_format_for_color = spec_format_for_color,
+                      col_num = 5)
+# Extract out column 6
+col6 = pull_spec_numb(spec_format = spec_format,
+                      spec_format_for_color = spec_format_for_color,
+                      col_num = 6)
+# Extract out column 7
+col7 = pull_spec_numb(spec_format = spec_format,
+                      spec_format_for_color = spec_format_for_color,
+                      col_num = 7)
+# Extract out column 8
+col8 = pull_spec_numb(spec_format = spec_format,
+                      spec_format_for_color = spec_format_for_color,
+                      col_num = 8)
+# Extract out column 9
+col9 = pull_spec_numb(spec_format = spec_format,
+                      spec_format_for_color = spec_format_for_color,
+                      col_num = 9)
+
+pdf(file = "~/Downloads/eeb_collection_multiple_fish_graphs.pdf", width = 7, height = 10)
+# Plot figures side by side
+par(mfrow = c(4,2))
+plot(col2[[1]], col = col2[[2]], lwd = 4, ylim = c(0, 150), xlim = c(400, 720))
+rasterImage(img, xleft = 400,
+            xright = 550,
+            ybottom = 75,
+            ytop = 150)
+text(x = 400, y = 60, 
+     labels = colnames(spec_format)[2], cex = 0.9, adj =0)
+
+plot(col3[[1]], col = col3[[2]], lwd = 4, ylim = c(0, 150), xlim = c(400, 720))
+rasterImage(img2, xleft = 400,
+            xright = 550,
+            ybottom = 75,
+            ytop = 150)
+text(x = 400, y = 60, 
+     labels = colnames(spec_format)[3], cex = 0.9, adj = 0)
+
+
+plot(col4[[1]], col = col4[[2]], lwd = 4, ylim = c(0, 150), xlim = c(400, 720))
+rasterImage(img3, xleft = 400,
+            xright = 550,
+            ybottom = 75,
+            ytop = 150)
+text(x = 400, y = 60, 
+     labels = colnames(spec_format)[4], cex = 0.9, adj = 0)
+
+plot(col5[[1]], col = col5[[2]], lwd = 4, ylim = c(0, 150), xlim = c(400, 720))
+rasterImage(img4, xleft = 400,
+            xright = 550,
+            ybottom = 75,
+            ytop = 150)
+text(x = 400, y = 60, 
+     labels = colnames(spec_format)[5], cex = 0.9, adj = 0) 
+
+plot(col6[[1]], col = col6[[2]], lwd = 4, ylim = c(0, 150), xlim = c(400, 720))
+rasterImage(img5, xleft = 400,
+            xright = 550,
+            ybottom = 75,
+            ytop = 150)
+text(x = 400, y = 60, 
+     labels = colnames(spec_format)[6], cex = 0.9, adj = 0) 
+
+plot(col7[[1]], col = col7[[2]], lwd = 4, ylim = c(0, 150), xlim = c(400, 720))
+rasterImage(img6, xleft = 400,
+            xright = 550,
+            ybottom = 75,
+            ytop = 150)
+text(x = 400, y = 60, 
+     labels = colnames(spec_format)[7], cex = 0.9, adj = 0) 
+
+plot(col8[[1]], col = col8[[2]], lwd = 4, ylim = c(0, 150), xlim = c(400, 720))
+rasterImage(img7, xleft = 400,
+            xright = 550,
+            ybottom = 75,
+            ytop = 150)
+text(x = 400, y = 60, 
+     labels = colnames(spec_format)[8], cex = 0.9, adj = 0) 
+
+plot(col9[[1]], col = col9[[2]], lwd = 4, ylim = c(0, 150), xlim = c(400, 720))
+rasterImage(img8, xleft = 400,
+            xright = 550,
+            ybottom = 75,
+            ytop = 150)
+text(x = 400, y = 60, 
+     labels = colnames(spec_format)[9], cex = 0.9, adj = 0) 
+
+ dev.off()
+```
